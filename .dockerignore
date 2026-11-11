@@ -1,0 +1,5 @@
+# Only application files are needed in the image build context.
+**
+!main.py
+!requirements.txt
+!Dockerfile

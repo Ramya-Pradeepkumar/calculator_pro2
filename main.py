@@ -1,4 +1,4 @@
-"""A small FastAPI service for addition and subtraction."""
+"""A small FastAPI service for addition, subtraction, and division."""
 
 import math
 
@@ -26,6 +26,15 @@ class SubtractionResponse(BaseModel):
     result: FiniteFloat
 
 
+class DivisionRequest(BaseModel):
+    a: FiniteFloat
+    b: FiniteFloat
+
+
+class DivisionResponse(BaseModel):
+    result: FiniteFloat
+
+
 @app.post("/add", response_model=AdditionResponse)
 def add_numbers(numbers: AdditionRequest) -> AdditionResponse:
     """Add two finite numbers and return their sum."""
@@ -42,6 +51,17 @@ def subtract_numbers(numbers: SubtractionRequest) -> SubtractionResponse:
     if not math.isfinite(result):
         raise HTTPException(status_code=422, detail="The difference is outside the supported range.")
     return SubtractionResponse(result=result)
+
+
+@app.post("/divide", response_model=DivisionResponse)
+def divide_numbers(numbers: DivisionRequest) -> DivisionResponse:
+    """Divide a by b and return their quotient."""
+    if numbers.b == 0:
+        raise HTTPException(status_code=422, detail="Cannot divide by zero.")
+    result = numbers.a / numbers.b
+    if not math.isfinite(result):
+        raise HTTPException(status_code=422, detail="The quotient is outside the supported range.")
+    return DivisionResponse(result=result)
 
 
 @app.get("/health")

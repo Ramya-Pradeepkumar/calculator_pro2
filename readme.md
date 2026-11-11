@@ -1,6 +1,6 @@
 # Calculator API
 
-A FastAPI service that adds, subtracts, and divides two numbers, with Docker and Docker Compose support.
+A FastAPI service that adds, subtracts, divides, and multiplies two numbers, with Docker and Docker Compose support.
 
 ## Run with Docker Compose
 
@@ -99,6 +99,27 @@ Invoke-RestMethod -Uri http://localhost:8000/divide -Method Post -ContentType 'a
 ```
 
 Dividing by zero returns HTTP 422 with `{"detail":"Cannot divide by zero."}`.
+
+## Multiply two numbers
+
+Send a `POST` request to `http://localhost:8000/multiply` with a JSON body.
+The endpoint calculates `a * b`:
+
+```json
+{"a": 10, "b": 5}
+```
+
+Response:
+
+```json
+{"result": 50.0}
+```
+
+PowerShell example:
+
+```powershell
+Invoke-RestMethod -Uri http://localhost:8000/multiply -Method Post -ContentType 'application/json' -Body '{"a":10,"b":5}'
+```
 
 All endpoints support negative numbers and decimals. Missing fields, invalid numbers,
 non-finite numbers, and results outside the supported range return HTTP 422.

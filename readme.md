@@ -10,8 +10,9 @@ Install Docker with the Compose plugin and start Docker, then run:
 docker compose up --build -d
 ```
 
-This builds the `calculator-addition:local` image and serves the API on port 8000.
-Open http://localhost:8000/docs to try the endpoint in the interactive API docs.
+This builds the `calculator-addition:local` image and serves the API on host port 8001, mapped to container port 8000.
+Open http://localhost:8001/docs to try the endpoints in the interactive API docs.
+For the request examples below, use port 8001 when running with Compose.
 
 Stop the service:
 
